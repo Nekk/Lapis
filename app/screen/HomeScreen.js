@@ -3,6 +3,8 @@ import { Dimensions,StyleSheet, Text, View, Alert } from 'react-native';
 import { ThemeProvider, Button } from 'react-native-elements'
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
 
+const s = require('../style/style')
+
 const { height, width } = Dimensions.get('window');
 const theme = {
   Button: {
@@ -31,7 +33,7 @@ export default class HomeScreen extends Component {
   render() {
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={s.theme}>
         <View style={styles.container}>
           <MapView
             style={styles.map}
@@ -58,11 +60,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: "flex-end",
     marginBottom: height * 0.05,
-    justifyContent: "center"
-  },
-  mapContainer: {
-    flex: 1,
-    alignItems: "center",
     justifyContent: "center"
   },
   map:{

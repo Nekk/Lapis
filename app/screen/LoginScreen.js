@@ -18,14 +18,8 @@ import {
     FormValidationMessage
 } from 'react-native-elements'
 
-const { height, width } = Dimensions.get('window');
-const theme={
-    Button:{
-        buttonStyle:{
-            width: width * 0.9
-        }
-    }
-}
+const s = require('../style/style')
+const assets = require('../../assets/index')
 
 export default class LoginScreen extends Component {
     static navigationOptions = {
@@ -36,13 +30,13 @@ export default class LoginScreen extends Component {
       const {navigate} = this.props.navigation;
 
       return (
-        <ThemeProvider theme={theme}>
-            <View style={styles.container}>
+        <ThemeProvider theme={s.theme}>
+            <View style={s.globalStyle.container}>
                 <ImageBackground 
                     source={require('../../assets/bg/loginBg2.jpg')} 
-                    style={styles.bgStyle}
+                    style={s.globalStyle.bgStyle}
                 >
-                    <Image source={require('../../assets/logo/logo2.png')} style={styles.logo}></Image>
+                    <Image source={assets.logoSrc} style={s.globalStyle.logo}></Image>
                     <Input placeholder='Username' />
                     <Input placeholder="Password"/>
                     <Button title="Login" 
@@ -59,26 +53,3 @@ export default class LoginScreen extends Component {
       );
     }
   }
-
-  const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    bgStyle:{
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        width: '100%',
-        height: '100%'
-    },
-    logo:{
-        width: "60%",
-        height: "60%",
-        resizeMode: 'contain'
-    },
-    // button:{
-    //     width: width * 0.9
-    // }
-  });

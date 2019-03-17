@@ -3,17 +3,9 @@ import { StyleSheet, Text, View, Alert,Dimensions } from 'react-native';
 import {Button, ThemeProvider} from 'react-native-elements'
 import CountDown from 'react-native-countdown-component'
 
+const s = require('../style/style')
+
 const { height, width } = Dimensions.get('window');
-const theme = {
-    Button:{
-        buttonStyle:{
-            width: width * 0.9
-        },
-        containerStyle:{
-            marginTop: height * 0.02
-        }
-    }
-}
 
 export default class RentScreen extends Component{
     static navigationOptions = {
@@ -41,40 +33,40 @@ export default class RentScreen extends Component{
     }
   
     render(){
-      const labelColor = 'rgb(27,111,204)';
+        const countDownSize = width * 0.08
 
       return(
-        <ThemeProvider theme={theme}>
-            <View style={styles.container}>
+        <ThemeProvider theme={s.theme}>
+            <View style={s.globalStyle.container}>
             {
                 this.state.isPressRent ? (
                     <CountDown
-                      style={{paddingRight: width * 0.05}}
-                      size={width * 0.08}
+                      style={styles.countDownStyle}
+                      size={countDownSize}
                       until={172800} // 48 hours
                       onFinish={() => alert('Finished')}
-                      digitStyle={{backgroundColor: '#FFF', paddingTop: 30}}
-                      timeLabelStyle={{color: labelColor, fontWeight: 'bold'}}
+                      digitStyle={styles.digitStyle}
+                      timeLabelStyle={styles.timeLabelStyle}
                       timeToShow={['D','H', 'M', 'S']}
                       showSeparator
                     />
                 ) : (
                     <CountDown
-                      style={{paddingRight: width * 0.05}}
-                      size={width * 0.08}
+                      style={styles.countDownStyle}
+                      size={countDownSize}
                       until={0} 
-                      digitStyle={{backgroundColor: '#FFF', paddingTop: 30}}
-                      timeLabelStyle={{color: labelColor, fontWeight: 'bold'}}
+                      digitStyle={styles.digitStyle}
+                      timeLabelStyle={styles.timeLabelStyle}
                       timeToShow={['D','H', 'M', 'S']}
                       showSeparator
                     />
                 )
             }
             </View>
-            <View style={styles.container}>
+            <View style={s.globalStyle.container}>
                 <Button title="Rent" 
                     onPress={this._onPressRent}/>
-                <Button buttonStyle={styles.red} title="Back"
+                <Button buttonStyle={s.globalStyle.redBtn} title="Back"
                     onPress={this._onPressBack}/>
             </View>
         </ThemeProvider>
@@ -82,13 +74,16 @@ export default class RentScreen extends Component{
     }
   }
 
-const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: 'center'
-    },
-    red:{
-        backgroundColor: "#d9534f"
+  
+
+  const styles = StyleSheet.create({
+      countDownStyle:{
+        paddingRight: width * 0.05
+      },
+      digitStyle:{
+        backgroundColor: '#FFF', paddingTop: 30
+      },
+      timeLabelStyle:{
+          color: 'rgb(27,111,204)', fontWeight: 'bold'
     }
-})
+  })

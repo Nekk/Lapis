@@ -9,9 +9,10 @@ import {
     Image,
     Dimensions     
  } from 'react-native';
-import {Button, Input, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
+import {Button, Input, FormLabel, FormInput, FormValidationMessage, ThemeProvider} from 'react-native-elements'
 
-const { height, width } = Dimensions.get('window');
+const s = require('../style/style')
+const assets = require('../../assets/index')
 
 export default class RegisterScreen extends Component {
     static navigationOptions = {
@@ -22,17 +23,19 @@ export default class RegisterScreen extends Component {
       const {navigate} = this.props.navigation;
 
       return (
-        <View style={styles.container}>
-            <ImageBackground 
-                source={require('../../assets/bg/loginBg2.jpg')} 
-                style={styles.bgStyle}
-            >
-                <Image source={require('../../assets/logo/logo2.png')} style={styles.logo}></Image>
-                <Input placeholder='Username' />
-                <Input placeholder="Password"/>
-                <Button title="Register" type="outline" buttonStyle={styles.button}/>
-            </ImageBackground>
-        </View>
+        <ThemeProvider theme={s.theme}>
+            <View style={s.globalStyle.container}>
+                <ImageBackground 
+                    source={require('../../assets/bg/loginBg2.jpg')} 
+                    style={s.globalStyle.bgStyle}
+                >
+                    <Image source={require('../../assets/logo/logo2.png')} style={s.globalStyle.logo}></Image>
+                    <Input placeholder='Username' />
+                    <Input placeholder="Password"/>
+                    <Button title="Register" type="outline"/>
+                </ImageBackground>
+             </View>
+        </ThemeProvider>
       );
     }
   }
@@ -45,23 +48,4 @@ export default class RegisterScreen extends Component {
         justifyContent: 'center',
         height: 50
     },
-    formContainer: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    bgStyle:{
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%',
-        paddingTop: 10
-    },
-    logo:{
-        width: "60%",
-        height: "60%",
-        resizeMode: 'contain'
-    },
-    button:{
-        width: width * 0.9
-    }
   });

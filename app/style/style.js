@@ -3,10 +3,11 @@ import {
   StyleSheet
 } from 'react-native'
 
-const {
+export const {
   height,
   width
 } = Dimensions.get('window');
+
 
 exports.globalStyle = StyleSheet.create({
   container: {
@@ -41,7 +42,7 @@ exports.globalStyle = StyleSheet.create({
     width: "60%",
     height: "60%",
     resizeMode: 'contain'
-  },
+  }
 })
 
 exports.theme = {
@@ -50,6 +51,11 @@ exports.theme = {
       width: width * 0.9
     },
     containerStyle: {
+      marginTop: height * 0.02
+    }
+  },
+  Input: {
+    containerStyle:{
       marginTop: height * 0.02
     }
   }

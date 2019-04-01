@@ -1,21 +1,9 @@
 import React, { Component } from 'react'
-import { Dimensions,StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert,AsyncStorage } from 'react-native';
 import { ThemeProvider, Button } from 'react-native-elements'
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
 
 const s = require('../style/style')
-
-const { height, width } = Dimensions.get('window');
-const theme = {
-  Button: {
-    buttonStyle: {
-      width: width * 0.9
-    },
-    containerStyle: {
-      marginTop: width * 0.02
-    }
-  }
-}
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
@@ -29,6 +17,11 @@ export default class HomeScreen extends Component {
   _onPressRent = () => {
     this.props.navigation.navigate('Rent')
   }
+
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
 
   render() {
 
@@ -48,6 +41,7 @@ export default class HomeScreen extends Component {
         </View>
         <View style={styles.container}>
           <Button title="Rent" onPress={this._onPressRent}></Button>
+          <Button title="Sign Out" onPress={this._signOutAsync}></Button>
         </View>
       </ThemeProvider>
     );
@@ -59,11 +53,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: "flex-end",
-    marginBottom: height * 0.05,
+    marginBottom: s.height * 0.05,
     justifyContent: "center"
   },
   map:{
     ...StyleSheet.absoluteFillObject,
-    height: height * 0.78
+    height: s.height * 0.78
   }
 })

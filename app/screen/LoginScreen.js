@@ -1,4 +1,5 @@
 import React,{ Component } from 'react'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { 
     StyleSheet, 
     Text, 
@@ -7,15 +8,12 @@ import {
     Alert,
     ImageBackground,
     Image,
-    Dimensions
+    AsyncStorage
  } from 'react-native';
 import {
     ThemeProvider, 
     Button, 
-    Input, 
-    FormLabel, 
-    FormInput,
-    FormValidationMessage
+    Input
 } from 'react-native-elements'
 
 const s = require('../style/style')
@@ -24,6 +22,12 @@ const assets = require('../../assets/index')
 export default class LoginScreen extends Component {
     static navigationOptions = {
         title: 'Login',
+        header: null
+    };
+
+    _signInAsync = async () => {
+        await AsyncStorage.setItem('userToken', 'abc');
+        this.props.navigation.navigate('App');
     };
   
     render() {
@@ -37,13 +41,14 @@ export default class LoginScreen extends Component {
                     style={s.globalStyle.bgStyle}
                 >
                     <Image source={assets.logoSrc} style={s.globalStyle.logo}></Image>
-                    <Input placeholder='Username' />
-                    <Input placeholder="Password"/>
+                    <Input placeholder='Username'/>
+                    <Input placeholder="Password" secureTextEntry={true}/>
                     <Button title="Login" 
-                        onPress={() => navigate('Home')}/>
+                        onPress={this._signInAsync}/>
                     <Button title="Register" type="outline" 
                         onPress={() => navigate('Register')}/>
                     <Button
+                        containerStyle={styles.marginBottom}
                         title="Forget Password"
                         type="clear" 
                     />
@@ -53,3 +58,9 @@ export default class LoginScreen extends Component {
       );
     }
   }
+
+const styles = StyleSheet.create({
+    marginBottom:{
+        marginBottom: s.height * 0.05
+    }
+})

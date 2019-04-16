@@ -13,7 +13,7 @@ import LoginScreen from "./app/screen/LoginScreen";
 import RegisterScreen from "./app/screen/RegisterScreen";
 import RentScreen from "./app/screen/RentScreen";
 import AuthLoadingScreen from "./app/screen/AuthLoadingScreen";
-import { _openDrawer, _signOut } from "./app/shared/function.js";
+import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
 
 const s = require("./app/style/style");
 
@@ -35,6 +35,7 @@ const DrawerNavigation = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
+      title: _getState(),
       headerLeft: (
         <Icon
           containerStyle={s.globalStyle.headerMarginLeft}

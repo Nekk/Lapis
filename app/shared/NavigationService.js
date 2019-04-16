@@ -15,6 +15,10 @@ function navigate(routeName, params) {
   );
 }
 
+function getState() {
+  return NavigationActions.state;
+}
+
 function openDrawer() {
   _navigator.dispatch(DrawerActions.openDrawer());
 }
@@ -24,5 +28,6 @@ function openDrawer() {
 export default {
   navigate,
   openDrawer,
-  setTopLevelNavigator
+  setTopLevelNavigator,
+  getState
 };

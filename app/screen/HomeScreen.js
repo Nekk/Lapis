@@ -6,6 +6,10 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 const s = require("../style/style");
 
 export default class HomeScreen extends Component {
+  static navigationOptions = {
+    title: "Home"
+  };
+
   constructor(props) {
     super(props);
   }

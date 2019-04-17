@@ -12,6 +12,7 @@ import HomeScreen from "./app/screen/HomeScreen.js";
 import LoginScreen from "./app/screen/LoginScreen";
 import RegisterScreen from "./app/screen/RegisterScreen";
 import RentScreen from "./app/screen/RentScreen";
+import ScanScreen from "./app/screen/ScanScreen";
 import AuthLoadingScreen from "./app/screen/AuthLoadingScreen";
 import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
 
@@ -20,7 +21,8 @@ const s = require("./app/style/style");
 const DrawerStack = createDrawerNavigator(
   {
     Home: HomeScreen,
-    Rent: RentScreen
+    Rent: RentScreen,
+    Scan: ScanScreen
     //Profile: ProfileScreen,
     //Others...
   },
@@ -34,8 +36,8 @@ const DrawerNavigation = createStackNavigator(
     DrawerStack: DrawerStack
   },
   {
+    headerMode: "screen",
     defaultNavigationOptions: {
-      title: _getState(),
       headerLeft: (
         <Icon
           containerStyle={s.globalStyle.headerMarginLeft}

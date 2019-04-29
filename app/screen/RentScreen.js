@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
-import { Button, ThemeProvider } from "react-native-elements";
+import { Icon, Button, ThemeProvider } from "react-native-elements";
+// import Icon from 'react-native-vector-icons/FontAwesome5'
 import CountDown from "react-native-countdown-component";
 
 const s = require("../style/style");
@@ -24,18 +25,18 @@ export default class RentScreen extends Component {
   };
 
   _onPressRent = () => {
-    // Alert.alert('Rented')
-    // this.setState({
-    //     isPressRent: true
-    // })
-    this.props.navigation.navigate("Scan");
+    Alert.alert("Rented");
+    this.setState({
+      isPressRent: true
+    });
+    // this.props.navigation.navigate("Scan");
   };
 
   render() {
     const countDownSize = s.width * 0.08;
 
     return (
-      <ThemeProvider theme={s.theme}>
+      <View style={styles.rentContainer}>
         <View style={s.globalStyle.container}>
           {this.state.isPressRent ? (
             <CountDown
@@ -60,18 +61,34 @@ export default class RentScreen extends Component {
             />
           )}
         </View>
-        <View style={s.globalStyle.container}>
-          <Button title="Rent" onPress={this._onPressRent} />
-          <Button
-            buttonStyle={s.globalStyle.redBtn}
-            title="Back"
-            onPress={this._onPressBack}
-          />
-        </View>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <View style={styles.buttonContainer}>
+            <Button
+              icon={<Icon name="refresh" size={40} color="white" />}
+              title="Renew"
+              onPress={this._onPressRent}
+            />
+            <Button
+              icon={<Icon name="chevron-left" size={40} color="white" />}
+              buttonStyle={s.globalStyle.redBtn}
+              title="Return"
+              onPress={this._onPressBack}
+            />
+          </View>
+        </ThemeProvider>
+      </View>
     );
   }
 }
+
+const theme = {
+  Button: {
+    buttonStyle: {
+      width: s.width * 0.4,
+      borderRadius: 30
+    }
+  }
+};
 
 const styles = StyleSheet.create({
   countDownStyle: {
@@ -84,5 +101,14 @@ const styles = StyleSheet.create({
   timeLabelStyle: {
     color: "rgb(27,111,204)",
     fontWeight: "bold"
+  },
+  rentContainer: {
+    flex: 1
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: s.width * 0.4
   }
 });

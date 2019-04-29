@@ -30,10 +30,15 @@ export default class ScanScreen extends Component {
   };
 
   _handleBarCodeRead = result => {
-    if (result.data !== this.state.lastScannedUrl) {
-      LayoutAnimation.spring();
-      this.setState({ lastScannedUrl: result.data });
-    }
+    console.log("result = ");
+    console.log(result.data);
+    // console.log("lastScannedUrl = ")
+    // console.log(this.state.lastScannedUrl)
+    this.props.navigation.navigate("Rent");
+    //   if (result.data !== this.state.lastScannedUrl) {
+    //     LayoutAnimation.spring();
+    //     this.setState({ lastScannedUrl: result.data });
+    //   }
   };
 
   render() {
@@ -55,7 +60,7 @@ export default class ScanScreen extends Component {
           />
         )}
 
-        {this._maybeRenderUrl()}
+        {/* {this._maybeRenderUrl()} */}
 
         <StatusBar hidden />
       </View>
@@ -63,18 +68,18 @@ export default class ScanScreen extends Component {
   }
 
   _handlePressUrl = () => {
-    Alert.alert(
-      "Open this URL?",
-      this.state.lastScannedUrl,
-      [
-        {
-          text: "Yes",
-          onPress: () => Linking.openURL(this.state.lastScannedUrl)
-        },
-        { text: "No", onPress: () => {} }
-      ],
-      { cancellable: false }
-    );
+    //   Alert.alert(
+    //     'Open this URL?',
+    //     this.state.lastScannedUrl,
+    //     [
+    //       {
+    //         text: 'Yes',
+    //         onPress: () => Linking.openURL(this.state.lastScannedUrl),
+    //       },
+    //       { text: 'No', onPress: () => {} },
+    //     ],
+    //     { cancellable: false }
+    //   );
   };
 
   _handlePressCancel = () => {
@@ -88,17 +93,19 @@ export default class ScanScreen extends Component {
 
     return (
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.url} onPress={this._handlePressUrl}>
-          <Text numberOfLines={1} style={styles.urlText}>
-            {this.state.lastScannedUrl}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={this._handlePressCancel}
-        >
-          <Text style={styles.cancelButtonText}>Cancel</Text>
-        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.url} onPress={this._handlePressUrl}>
+            <Text numberOfLines={1} style={styles.urlText}>
+              {this.state.lastScannedUrl}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={this._handlePressCancel}>
+            <Text style={styles.cancelButtonText}>
+              Cancel
+            </Text>
+          </TouchableOpacity> */}
+        {this.props.navigation.navigate("Rent")}
       </View>
     );
   };

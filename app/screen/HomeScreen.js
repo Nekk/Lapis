@@ -15,7 +15,7 @@ export default class HomeScreen extends Component {
   }
 
   _onPressRent = () => {
-    this.props.navigation.navigate("Rent");
+    this.props.navigation.navigate("Scan");
   };
 
   _openDrawer = () => {

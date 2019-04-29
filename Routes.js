@@ -5,7 +5,7 @@ import {
   createDrawerNavigator
 } from "react-navigation";
 import React from "react";
-import { Button, Text, View, Alert, AsyncStorage } from "react-native";
+import { Button, StyleSheet, Image } from "react-native";
 import { Icon } from "react-native-elements";
 
 import HomeScreen from "./app/screen/HomeScreen.js";
@@ -17,6 +17,7 @@ import AuthLoadingScreen from "./app/screen/AuthLoadingScreen";
 import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
 
 const s = require("./app/style/style");
+const assets = require("./assets/index");
 
 const DrawerStack = createDrawerNavigator(
   {
@@ -38,6 +39,16 @@ const DrawerNavigation = createStackNavigator(
   {
     headerMode: "screen",
     defaultNavigationOptions: {
+      headerTitle: (
+        <Image
+          source={assets.logoHeader}
+          style={{
+            width: "40%",
+            height: "40%",
+            resizeMode: "contain"
+          }}
+        />
+      ),
       headerLeft: (
         <Icon
           containerStyle={s.globalStyle.headerMarginLeft}
@@ -83,3 +94,11 @@ export const SwitchNavigator = createSwitchNavigator(
     initialRouteName: "AuthLoading"
   }
 );
+
+// const styles = StyleSheet.create({
+//     logo: {
+//         width: "60%",
+//         height: "60%",
+//         resizeMode: "contain"
+//     }
+// })

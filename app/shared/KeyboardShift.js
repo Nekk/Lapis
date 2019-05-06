@@ -8,7 +8,6 @@ import {
   TextInput,
   UIManager
 } from "react-native";
-
 const { State: TextInputState } = TextInput;
 
 export default class KeyboardShift extends Component {
@@ -53,7 +52,11 @@ export default class KeyboardShift extends Component {
       (originX, originY, width, height, pageX, pageY) => {
         const fieldHeight = height;
         const fieldTop = pageY;
-        const gap = windowHeight - keyboardHeight - (fieldTop + fieldHeight);
+        const gap = this.props.gap
+          ? this.props.gap
+          : windowHeight - keyboardHeight - (fieldTop + fieldHeight);
+        // const gap = -89.5
+        // console.log("gap = " + gap)
         if (gap >= 0) {
           return;
         }

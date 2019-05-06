@@ -21,8 +21,17 @@ import KeyboardShift from "../shared/KeyboardShift";
 
 const s = require("../style/style");
 const assets = require("../../assets/index");
+const gap = -95.5;
 
 export default class RegisterScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.emailRef = React.createRef();
+    this.usernameRef = React.createRef();
+    this.passwordRef = React.createRef();
+  }
+
   static navigationOptions = {
     title: "Register",
     header: null
@@ -30,6 +39,10 @@ export default class RegisterScreen extends Component {
 
   _onPressBack = () => {
     this.props.navigation.navigate("Login");
+  };
+
+  _onPressReturn = () => {
+    this.usernameRef.current.focus();
   };
 
   render() {
@@ -48,8 +61,14 @@ export default class RegisterScreen extends Component {
                   source={require("../../assets/logo/logo2.png")}
                   style={s.globalStyle.logo}
                 />
-                <Input placeholder="Username" />
-                <Input placeholder="Password" secureTextEntry={true} />
+                {/* <Input ref={this.emailRef} placeholder="E-mail" onSubmitEditing={this._onPressReturn}/> */}
+                <Input ref={this.emailRef} placeholder="E-mail" />
+                <Input ref={this.usernameRef} placeholder="Username" />
+                <Input
+                  ref={this.passwordRef}
+                  placeholder="Password"
+                  secureTextEntry={true}
+                />
                 <Button title="Register" />
                 <Button
                   containerStyle={styles.marginBottom}
@@ -75,6 +94,6 @@ const styles = StyleSheet.create({
     height: 50
   },
   marginBottom: {
-    marginBottom: s.height * 0.1
+    marginBottom: s.height * 0.05
   }
 });

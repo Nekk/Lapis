@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 import { Icon, Button, ThemeProvider } from "react-native-elements";
 // import Icon from 'react-native-vector-icons/FontAwesome5'
 import CountDown from "react-native-countdown-component";
-
 const s = require("../style/style");
 
 export default class RentScreen extends Component {
@@ -20,12 +19,22 @@ export default class RentScreen extends Component {
     };
   }
 
+  componentWillMount() {
+    const qrCodeData = this.props.navigation.getParam(
+      "data",
+      "no data scanned"
+    );
+    // console.log(qrCodeData)
+    Alert.alert("Scanned Complete!!");
+    // qrCodeData ? this.setState({isPressRent: true}) : alert("Please go back and scan again!")
+  }
+
   _onPressBack = () => {
     this.props.navigation.navigate("Home");
   };
 
   _onPressRent = () => {
-    Alert.alert("Rented");
+    Alert.alert("Renewed");
     this.setState({
       isPressRent: true
     });
@@ -38,6 +47,7 @@ export default class RentScreen extends Component {
     return (
       <View style={styles.rentContainer}>
         <View style={s.globalStyle.container}>
+          <Text style={styles.headerTextStyle}>Timer</Text>
           {this.state.isPressRent ? (
             <CountDown
               style={styles.countDownStyle}
@@ -110,5 +120,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: s.width * 0.4
+  },
+  headerTextStyle: {
+    fontWeight: "bold",
+    color: "rgb(27,111,204)",
+    fontSize: 30
   }
 });

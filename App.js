@@ -41,13 +41,20 @@ const AppContainer = createAppContainer(SwitchNavigator);
 export default class App extends React.Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-        <AppContainer
-          ref={navigatorRef => {
-            NavigationService.setTopLevelNavigator(navigatorRef);
-          }}
-        />
-      </ApolloProvider>
+      // <ApolloProvider client={client}>
+      //   <AppContainer
+      //     ref={navigatorRef => {
+      //       NavigationService.setTopLevelNavigator(navigatorRef);
+      //     }}
+      //   />
+      // </ApolloProvider>
+      <AppContainer
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
     );
   }
 }
+
+// AppRegistry.registerComponent('App', () => App)

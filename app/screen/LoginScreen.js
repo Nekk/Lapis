@@ -80,10 +80,10 @@ import {
 } from "react-native";
 import { ThemeProvider, Button, Input } from "react-native-elements";
 import KeyboardShift from "../shared/KeyboardShift";
+import FBLoginButton from "../components/FBLoginButton";
 
 const s = require("../style/style");
 const assets = require("../../assets/index");
-const gap = -40.5;
 
 export default class LoginScreen extends Component {
   static navigationOptions = {
@@ -110,6 +110,7 @@ export default class LoginScreen extends Component {
                 <Image source={assets.logoSrc} style={s.globalStyle.logo} />
                 <Input placeholder="Username" />
                 <Input placeholder="Password" secureTextEntry={true} />
+                {/* <FBLoginButton/> */}
                 <Button title="Login" onPress={this._signInAsync} />
                 <Button
                   title="Register"

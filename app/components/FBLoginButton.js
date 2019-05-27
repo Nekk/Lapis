@@ -7,9 +7,8 @@ export default class FBLoginButton extends Component {
     try {
       const { type, token } = await Facebook.logInWithReadPermissionsAsync(
         "349205579115885", // Replace with your own app id in standalone app
-        { permissions: ["public_profile"] }
+        { permissions: ["public_profile"], behavior: "web" }
       );
-
       switch (type) {
         case "success": {
           // Get the user's name using Facebook's Graph API

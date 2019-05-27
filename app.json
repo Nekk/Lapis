@@ -24,6 +24,9 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "facebookScheme": "fb349205579115885",
+    "facebookAppId": "349205579115885",
+    "facebookDisplayName": "Lapis"
   }
 }

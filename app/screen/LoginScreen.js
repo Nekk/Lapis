@@ -110,8 +110,8 @@ export default class LoginScreen extends Component {
                 <Image source={assets.logoSrc} style={s.globalStyle.logo} />
                 <Input placeholder="Username" />
                 <Input placeholder="Password" secureTextEntry={true} />
-                {/* <FBLoginButton/> */}
-                <Button title="Login" onPress={this._signInAsync} />
+                <FBLoginButton />
+                {/* <Button title="Login" onPress={this._signInAsync} /> */}
                 <Button
                   title="Register"
                   type="outline"

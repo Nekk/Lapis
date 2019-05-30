@@ -4,6 +4,9 @@
     "slug": "Lapis",
     "privacy": "public",
     "sdkVersion": "32.0.0",
+    "facebookScheme": "fb349205579115885",
+    "facebookAppId": "349205579115885",
+    "facebookDisplayName": "Lapis",
     "platforms": [
       "ios",
       "android"
@@ -24,9 +27,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "facebookScheme": "fb349205579115885",
-    "facebookAppId": "349205579115885",
-    "facebookDisplayName": "Lapis"
+    }
   }
 }

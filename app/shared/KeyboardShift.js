@@ -47,6 +47,7 @@ export default class KeyboardShift extends Component {
     const { height: windowHeight } = Dimensions.get("window");
     const keyboardHeight = event.endCoordinates.height;
     const currentlyFocusedField = TextInputState.currentlyFocusedField();
+    if (currentlyFocusedField == null) return; // prevent NSNULL error when selecting an input in Facebook SDK
     UIManager.measure(
       currentlyFocusedField,
       (originX, originY, width, height, pageX, pageY) => {

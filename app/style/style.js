@@ -22,6 +22,9 @@ exports.globalStyle = StyleSheet.create({
   button: {
     width: width * 0.9
   },
+  facebookColor: {
+    backgroundColor: "#3b5998"
+  },
   redBtn: {
     backgroundColor: "#d9534f"
   },

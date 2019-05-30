@@ -97,33 +97,45 @@ export default class LoginScreen extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    // return (
+    //   <FBLoginButton/>
+    // )
 
     return (
       <ThemeProvider theme={s.theme}>
         <KeyboardShift>
           {() => (
-            <View style={s.globalStyle.container}>
-              <ImageBackground
-                source={require("../../assets/bg/loginBg2.jpg")}
-                style={s.globalStyle.bgStyle}
-              >
-                <Image source={assets.logoSrc} style={s.globalStyle.logo} />
-                <Input placeholder="Username" />
-                <Input placeholder="Password" secureTextEntry={true} />
-                <FBLoginButton />
-                {/* <Button title="Login" onPress={this._signInAsync} /> */}
-                <Button
-                  title="Register"
-                  type="outline"
-                  onPress={() => navigate("Register")}
-                />
-                <Button
-                  containerStyle={styles.marginBottom}
-                  title="Forget Password"
-                  type="clear"
-                />
-              </ImageBackground>
-            </View>
+            <ThemeProvider theme={s.theme}>
+              <KeyboardShift>
+                {() => (
+                  <View style={s.globalStyle.container}>
+                    <ImageBackground
+                      source={assets.loginBg}
+                      style={s.globalStyle.bgStyle}
+                    >
+                      <Image
+                        source={assets.logoSrc}
+                        style={s.globalStyle.logo}
+                      />
+                      <Input placeholder="Username" />
+                      <Input placeholder="Password" secureTextEntry={true} />
+                      {/* <Button title="Login" onPress={this._signInAsync} /> */}
+                      <FBLoginButton />
+                      <Button
+                        title="Register"
+                        type="outline"
+                        onPress={() => navigate("Register")}
+                      />
+                      <Button
+                        containerStyle={styles.marginBottom}
+                        title="Forget Password"
+                        type="clear"
+                      />
+                    </ImageBackground>
+                  </View>
+                )}
+              </KeyboardShift>
+            </ThemeProvider>
           )}
         </KeyboardShift>
       </ThemeProvider>

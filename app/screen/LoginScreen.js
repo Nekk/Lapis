@@ -90,52 +90,40 @@ export default class LoginScreen extends Component {
     header: null
   };
 
-  _signInAsync = async () => {
+  _signInAsync = async token => {
     await AsyncStorage.setItem("userToken", "abc");
     this.props.navigation.navigate("DrawerStack");
   };
 
   render() {
     const { navigate } = this.props.navigation;
-    // return (
-    //   <FBLoginButton/>
-    // )
 
     return (
       <ThemeProvider theme={s.theme}>
         <KeyboardShift>
           {() => (
-            <ThemeProvider theme={s.theme}>
-              <KeyboardShift>
-                {() => (
-                  <View style={s.globalStyle.container}>
-                    <ImageBackground
-                      source={assets.loginBg}
-                      style={s.globalStyle.bgStyle}
-                    >
-                      <Image
-                        source={assets.logoSrc}
-                        style={s.globalStyle.logo}
-                      />
-                      <Input placeholder="Username" />
-                      <Input placeholder="Password" secureTextEntry={true} />
-                      {/* <Button title="Login" onPress={this._signInAsync} /> */}
-                      <FBLoginButton />
-                      <Button
-                        title="Register"
-                        type="outline"
-                        onPress={() => navigate("Register")}
-                      />
-                      <Button
-                        containerStyle={styles.marginBottom}
-                        title="Forget Password"
-                        type="clear"
-                      />
-                    </ImageBackground>
-                  </View>
-                )}
-              </KeyboardShift>
-            </ThemeProvider>
+            <View style={s.globalStyle.container}>
+              <ImageBackground
+                source={assets.loginBg}
+                style={s.globalStyle.bgStyle}
+              >
+                <Image source={assets.logoSrc} style={s.globalStyle.logo} />
+                <Input placeholder="Username" />
+                <Input placeholder="Password" secureTextEntry={true} />
+                <Button title="Login" onPress={this._signInAsync} />
+                <FBLoginButton onSignInSuccess={this._signInAsync} />
+                <Button
+                  title="Register"
+                  type="outline"
+                  onPress={() => navigate("Register")}
+                />
+                <Button
+                  containerStyle={styles.marginBottom}
+                  title="Forget Password"
+                  type="clear"
+                />
+              </ImageBackground>
+            </View>
           )}
         </KeyboardShift>
       </ThemeProvider>

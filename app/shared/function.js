@@ -11,6 +11,10 @@ export const _signOut = async () => {
   NavigationService.navigate("Auth");
 };
 
+export const _navigate = (routeName, params) => {
+  NavigationService.navigate(routeName, params);
+};
+
 export const _getState = () => {
   return NavigationService.getState();
 };

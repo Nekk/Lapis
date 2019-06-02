@@ -146,8 +146,11 @@
 // });
 
 import * as React from "react";
-import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, Alert } from "react-native";
+import { Button } from "react-native-elements";
 import { Constants, Permissions, BarCodeScanner } from "expo";
+
+const s = require("../style/style");
 
 export default class BarcodeScannerExample extends React.Component {
   state = {
@@ -163,6 +166,10 @@ export default class BarcodeScannerExample extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
   }
+
+  _onPressBack = () => {
+    this.props.navigation.navigate("Home");
+  };
 
   render() {
     const { hasCameraPermission, scanned } = this.state;
@@ -180,12 +187,18 @@ export default class BarcodeScannerExample extends React.Component {
           //   justifyContent: 'flex-end',
         }}
       >
-        <Text>Please Scan for a QR Code</Text>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
           style={[StyleSheet.absoluteFill, styles.container]}
         >
-          <View style={styles.layerTop} />
+          <View style={styles.layerTop}>
+            <Button
+              containerStyle={styles.floatLeftBtn}
+              type="clear"
+              title="Back"
+              onPress={this._onPressBack}
+            />
+          </View>
           <View style={styles.layerCenter}>
             <View style={styles.layerLeft} />
             <View style={styles.focused} />
@@ -240,5 +253,8 @@ const styles = StyleSheet.create({
   layerBottom: {
     flex: 1,
     backgroundColor: opacity
+  },
+  floatLeftBtn: {
+    width: s.width * 0.2
   }
 });

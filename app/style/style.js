@@ -30,13 +30,13 @@ exports.globalStyle = StyleSheet.create({
   },
   bgStyle: {
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     width: "100%",
     height: "100%"
   },
   logo: {
     width: "60%",
-    height: "60%",
+    height: "45%",
     resizeMode: "contain"
   },
   headerMarginLeft: {

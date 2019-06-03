@@ -71,6 +71,6 @@ export default class FBLoginButton extends Component {
 const styles = StyleSheet.create({
   facebookBtnStyle: {
     width: s.width * 0.9,
-    marginTop: s.height * 0.04
+    marginTop: s.height * 0.02
   }
 });

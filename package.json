@@ -35,9 +35,11 @@
     "react-native-elements": "^1.1.0",
     "react-native-fbsdk": "github:facebook/react-native-fbsdk",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-maps": "^0.23.0",
     "react-native-oauth": "^2.1.18",
     "react-navigation": "^3.3.2",
+    "validator": "^11.0.0",
     "ws": "^7.0.1"
   },
   "devDependencies": {

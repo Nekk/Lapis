@@ -41,6 +41,9 @@ exports.globalStyle = StyleSheet.create({
   },
   headerMarginLeft: {
     marginLeft: width * 0.02
+  },
+  spinnerTextStyle: {
+    color: "#FFF"
   }
 });
 

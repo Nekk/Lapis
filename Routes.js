@@ -14,6 +14,7 @@ import RegisterScreen from "./app/screen/RegisterScreen";
 import RentScreen from "./app/screen/RentScreen";
 import ScanScreen from "./app/screen/ScanScreen";
 import AuthLoadingScreen from "./app/screen/AuthLoadingScreen";
+import SideMenu from "./app/components/SideMenu";
 import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
 
 const s = require("./app/style/style");
@@ -28,6 +29,7 @@ const DrawerStack = createDrawerNavigator(
     //Others...
   },
   {
+    contentComponent: SideMenu,
     gesturesEnabled: false
   }
 );

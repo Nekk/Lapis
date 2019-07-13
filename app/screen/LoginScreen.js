@@ -67,7 +67,6 @@
 // }
 
 import React, { Component } from "react";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   StyleSheet,
   Text,
@@ -95,6 +94,20 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate("DrawerStack");
   };
 
+  _validate = () => {
+    const isUsernameOk = !validator.isEmpty(this.state.usernameVal);
+    const isPasswordOk = !validator.isEmpty(this.state.passwordVal);
+
+    if (!isUsernameOk) {
+      Alert.alert("Please enter a username");
+      return false;
+    } else if (!isPasswordOk) {
+      Alert.alert("Please enter a password");
+      return false;
+    }
+    return true;
+  };
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -103,6 +116,11 @@ export default class LoginScreen extends Component {
         <KeyboardShift>
           {() => (
             <View style={s.globalStyle.container}>
+              {/* <Spinner
+                visible={this.state.spinner}
+                textContent={'Loading...'}
+                textStyle={s.globalStyle.spinnerTextStyle}
+              /> */}
               <ImageBackground
                 source={assets.loginBg}
                 style={s.globalStyle.bgStyle}

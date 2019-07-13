@@ -1,25 +1,11 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Alert,
-  ImageBackground,
-  Image,
-  Dimensions
-} from "react-native";
-import {
-  Button,
-  Input,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
-  ThemeProvider
-} from "react-native-elements";
+import { StyleSheet, View, Alert, ImageBackground, Image } from "react-native";
+import { Button, Input, ThemeProvider } from "react-native-elements";
 import KeyboardShift from "../shared/KeyboardShift";
-import ApolloClient, { gql } from "apollo-boost";
+import { gql } from "apollo-boost";
 import { Mutation } from "react-apollo";
+import validator from "validator";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const s = require("../style/style");
 const assets = require("../../assets/index");
@@ -41,9 +27,14 @@ export default class RegisterScreen extends Component {
     super(props);
 
     this.state = {
+      firstNameVal: "",
+      lastNameVal: "",
       emailVal: "",
       usernameVal: "",
-      passwordVal: ""
+      passwordVal: "",
+      confirmPasswordVal: "",
+
+      spinner: false
     };
   }
 
@@ -55,6 +46,18 @@ export default class RegisterScreen extends Component {
   _handleEmailChange = e => {
     this.setState({
       emailVal: e
+    });
+  };
+
+  _handleFirstNameChange = e => {
+    this.setState({
+      firstNameVal: e
+    });
+  };
+
+  _handleLastNameChange = e => {
+    this.setState({
+      lastNameVal: e
     });
   };
 
@@ -70,8 +73,47 @@ export default class RegisterScreen extends Component {
     });
   };
 
+  _handleConfirmPasswordChange = e => {
+    this.setState({
+      confirmPasswordVal: e
+    });
+  };
+
   _onPressBack = () => {
     this.props.navigation.navigate("Login");
+  };
+
+  _validate = () => {
+    //email -> not empty, isEmail
+    //username -> not empty, (later) check existing username
+    //password -> not empty,
+    //confirm password -> not empty, the same value as password
+
+    const isEmailOk =
+      !validator.isEmpty(this.state.emailVal) &&
+      validator.isEmail(this.state.emailVal);
+    const isUsernameOk = !validator.isEmpty(this.state.usernameVal);
+    const isPasswordOk = !validator.isEmpty(this.state.passwordVal);
+    const isConfirmPasswordOk =
+      !validator.isEmpty(this.state.confirmPasswordVal) &&
+      this.state.passwordVal === this.state.confirmPasswordVal;
+
+    if (!isEmailOk) {
+      Alert.alert("Please enter an email in the right format");
+      return false;
+    } else if (!isUsernameOk) {
+      Alert.alert("Please enter a username");
+      return false;
+    } else if (!isPasswordOk) {
+      Alert.alert("Please enter a password");
+      return false;
+    } else if (!isConfirmPasswordOk) {
+      Alert.alert(
+        "Password you entered doesn't match the confirm password field"
+      );
+      return false;
+    }
+    return true;
   };
 
   render() {
@@ -85,14 +127,33 @@ export default class RegisterScreen extends Component {
               <KeyboardShift>
                 {() => (
                   <View style={styles.container}>
+                    <Spinner
+                      visible={this.state.spinner}
+                      textContent={"Loading..."}
+                      textStyle={s.globalStyle.spinnerTextStyle}
+                    />
                     <ImageBackground
-                      source={require("../../assets/bg/loginBg2.jpg")}
+                      source={assets.loginBg}
                       style={s.globalStyle.bgStyle}
                     >
                       <Image
-                        source={require("../../assets/logo/logo2.png")}
+                        source={assets.logoSrc}
                         style={s.globalStyle.logo}
                       />
+                      <View style={styles.container}>
+                        <Input
+                          containerStyle={styles.halfWidth}
+                          value={this.state.firstNameVal}
+                          placeholder="First Name"
+                          onChangeText={e => this._handleFirstNameChange(e)}
+                        />
+                        <Input
+                          containerStyle={styles.halfWidth}
+                          value={this.state.lastNameVal}
+                          placeholder="Last Name"
+                          onChangeText={e => this._handleLastNameChange(e)}
+                        />
+                      </View>
                       <Input
                         value={this.state.emailVal}
                         placeholder="E-mail"
@@ -103,31 +164,62 @@ export default class RegisterScreen extends Component {
                         placeholder="Username"
                         onChangeText={e => this._handleUsernameChange(e)}
                       />
-                      <Input
-                        value={this.state.passwordVal}
-                        placeholder="Password"
-                        onChangeText={e => this._handlePasswordChange(e)}
-                        secureTextEntry={true}
-                      />
+                      <View style={styles.container}>
+                        <Input
+                          containerStyle={styles.halfWidth}
+                          value={this.state.passwordVal}
+                          placeholder="Password"
+                          onChangeText={e => this._handlePasswordChange(e)}
+                          secureTextEntry={true}
+                        />
+                        <Input
+                          containerStyle={styles.halfWidth}
+                          value={this.state.confirmPasswordVal}
+                          placeholder="Confirm Password"
+                          onChangeText={e =>
+                            this._handleConfirmPasswordChange(e)
+                          }
+                          secureTextEntry={true}
+                        />
+                      </View>
                       <Button
                         title="Register"
                         onPress={() => {
-                          registerUser({
-                            variables: {
-                              email: this.state.emailVal,
-                              username: this.state.usernameVal,
-                              password: this.state.passwordVal
-                            }
-                          })
-                            .then(result => {
-                              Alert.alert("Register Successfully!");
-                              navigate("Login");
-                            })
-                            .catch(error => {
-                              Alert.alert(
-                                "Oops! There's an error registering - " + error
-                              );
+                          const isValidatePass = this._validate();
+
+                          if (isValidatePass) {
+                            this.setState({
+                              spinner: true
                             });
+
+                            registerUser({
+                              variables: {
+                                email: this.state.emailVal,
+                                username: this.state.usernameVal,
+                                password: this.state.passwordVal
+                              }
+                            })
+                              .then(result => {
+                                setTimeout(
+                                  () => Alert.alert("Register Successfully!"),
+                                  10
+                                );
+                                navigate("Login");
+                              })
+                              .catch(error => {
+                                setTimeout(
+                                  () =>
+                                    Alert.alert(
+                                      "Oops! There's an error registering - " +
+                                        error
+                                    ),
+                                  10
+                                );
+                              });
+                            this.setState({
+                              spinner: false
+                            });
+                          }
                         }}
                       />
                       <Button
@@ -153,10 +245,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    height: 50
+    justifyContent: "center"
+    // height: 10
   },
   marginBottom: {
     marginBottom: s.height * 0.05
+  },
+  halfWidth: {
+    width: "50%"
   }
 });

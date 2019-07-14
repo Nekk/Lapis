@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Text, ScrollView, View, StyleSheet, Alert, Image } from "react-native";
+import {
+  Text,
+  ScrollView,
+  View,
+  StyleSheet,
+  Alert,
+  Image,
+  AsyncStorage
+} from "react-native";
 import { ThemeProvider, Button } from "react-native-elements";
 import { DrawerItems } from "react-navigation";
 
@@ -9,7 +17,18 @@ const assets = require("../../assets/index");
 export default class SideMenu extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      username: "firstName lastName"
+    };
   }
+
+  componentDidMount = async () => {
+    this.setState({
+      username: await AsyncStorage.getItem("username"),
+      pictureUrl: await AsyncStorage.getItem("pictureUrl")
+    });
+  };
 
   _comingSoon = () => {
     Alert.alert("Coming Soon...");
@@ -25,11 +44,22 @@ export default class SideMenu extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.profilePicContainer}>
-            <Image
+            {/* <Image
               style={styles.profilePictureStyle}
               source={assets.anonymous}
-            />
-            <Text style={styles.marginBottom}>FirstName LastName</Text>
+            /> */}
+            {this.state.pictureUrl ? (
+              <Image
+                style={styles.profilePictureStyle}
+                source={{ uri: this.state.pictureUrl }}
+              />
+            ) : (
+              <Image
+                style={styles.profilePictureStyle}
+                source={assets.anonymous}
+              />
+            )}
+            <Text style={styles.marginBottom}>{this.state.username}</Text>
           </View>
           <Button
             type="clear"

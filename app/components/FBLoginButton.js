@@ -22,12 +22,12 @@ export default class FBLoginButton extends Component {
         case "success": {
           // Get the user's name using Facebook's Graph API
           const response = await fetch(
-            `https://graph.facebook.com/me?access_token=${token}`
+            `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large)`
           );
           // profile is an object of "id" and "name"
           const profile = await response.json();
           Alert.alert("Logged in!", `Hi ${profile.name}!`, `${profile}`);
-          this.props.onSignInSuccess();
+          this.props.onSignInSuccess(profile);
           break;
         }
         case "cancel": {

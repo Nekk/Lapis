@@ -94,6 +94,15 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate("DrawerStack");
   };
 
+  _facebookSignInAsync = async profile => {
+    await AsyncStorage.setItem("userToken", "abc");
+    await AsyncStorage.setItem("username", profile.name);
+    await AsyncStorage.setItem("pictureUrl", profile.picture.data.url);
+    console.log("aaa =  ");
+    console.log(profile.picture.data.url);
+    this.props.navigation.navigate("DrawerStack");
+  };
+
   _validate = () => {
     const isUsernameOk = !validator.isEmpty(this.state.usernameVal);
     const isPasswordOk = !validator.isEmpty(this.state.passwordVal);
@@ -129,7 +138,7 @@ export default class LoginScreen extends Component {
                 <Input placeholder="Username" />
                 <Input placeholder="Password" secureTextEntry={true} />
                 <Button title="Login" onPress={this._signInAsync} />
-                <FBLoginButton onSignInSuccess={this._signInAsync} />
+                <FBLoginButton onSignInSuccess={this._facebookSignInAsync} />
                 <Button
                   title="Register"
                   type="outline"

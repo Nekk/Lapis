@@ -13,12 +13,20 @@ const gap = -95.5;
 
 const REGISTER_USER = gql`
   mutation RegisterUser(
+    $firstName: String!
+    $lastName: String!
     $email: String!
     $username: String!
     $password: String!
   ) {
-    registerUser(email: $email, username: $username, password: $password) {
-      id
+    registerUser(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      username: $username
+      password: $password
+    ) {
+      username
     }
   }
 `;
@@ -88,7 +96,8 @@ export default class RegisterScreen extends Component {
     //username -> not empty, (later) check existing username
     //password -> not empty,
     //confirm password -> not empty, the same value as password
-
+    const isFirstNameOk = !validator.isEmpty(this.state.firstNameVal);
+    const isLastNameOk = !validator.isEmpty(this.state.lastNameVal);
     const isEmailOk =
       !validator.isEmpty(this.state.emailVal) &&
       validator.isEmail(this.state.emailVal);
@@ -98,7 +107,13 @@ export default class RegisterScreen extends Component {
       !validator.isEmpty(this.state.confirmPasswordVal) &&
       this.state.passwordVal === this.state.confirmPasswordVal;
 
-    if (!isEmailOk) {
+    if (!isFirstNameOk) {
+      Alert.alert("Please enter your first name");
+      return false;
+    } else if (!isLastNameOk) {
+      Alert.alert("Please enter your last name");
+      return false;
+    } else if (!isEmailOk) {
       Alert.alert("Please enter an email in the right format");
       return false;
     } else if (!isUsernameOk) {
@@ -194,6 +209,8 @@ export default class RegisterScreen extends Component {
 
                             registerUser({
                               variables: {
+                                firstName: this.state.firstNameVal,
+                                lastName: this.state.lastNameVal,
                                 email: this.state.emailVal,
                                 username: this.state.usernameVal,
                                 password: this.state.passwordVal

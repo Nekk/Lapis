@@ -98,8 +98,6 @@ export default class LoginScreen extends Component {
     await AsyncStorage.setItem("userToken", "abc");
     await AsyncStorage.setItem("username", profile.name);
     await AsyncStorage.setItem("pictureUrl", profile.picture.data.url);
-    console.log("aaa =  ");
-    console.log(profile.picture.data.url);
     this.props.navigation.navigate("DrawerStack");
   };
 

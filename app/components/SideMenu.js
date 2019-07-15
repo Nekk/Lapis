@@ -13,13 +13,14 @@ import { DrawerItems } from "react-navigation";
 
 const s = require("../style/style");
 const assets = require("../../assets/index");
+const constant = require("../constant");
 
 export default class SideMenu extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "firstName lastName"
+      username: null
     };
   }
 
@@ -35,7 +36,7 @@ export default class SideMenu extends Component {
   };
 
   _onPressAccountSetting = () => {
-    console.log("Account Setting Pressed");
+    this.props.navigation.navigate("Account");
   };
 
   render() {
@@ -43,11 +44,7 @@ export default class SideMenu extends Component {
       // <ThemeProvider theme={theme}>
       <View style={styles.container}>
         <ScrollView>
-          <View style={styles.profilePicContainer}>
-            {/* <Image
-              style={styles.profilePictureStyle}
-              source={assets.anonymous}
-            /> */}
+          <View style={s.globalStyle.profilePicContainer}>
             {this.state.pictureUrl ? (
               <Image
                 style={styles.profilePictureStyle}
@@ -59,7 +56,11 @@ export default class SideMenu extends Component {
                 source={assets.anonymous}
               />
             )}
-            <Text style={styles.marginBottom}>{this.state.username}</Text>
+            {this.state.username ? (
+              <Text style={styles.marginBottom}>{this.state.username}</Text>
+            ) : (
+              <Text style={styles.marginBottom}>firstName lastName</Text>
+            )}
           </View>
           <Button
             type="clear"
@@ -100,17 +101,14 @@ const styles = StyleSheet.create({
   navItemStyle: {
     padding: 15
   },
-  profilePicContainer: {
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  profilePictureStyle: {
-    width: 40,
-    height: 40,
-    marginBottom: s.height * 0.01
-    // borderRadius:
-  },
   marginBottom: {
     marginBottom: s.height * 0.01
+  },
+  profilePictureStyle: {
+    width: constant.pictureSize,
+    height: constant.pictureSize,
+    marginBottom: s.height * 0.02,
+    borderRadius: constant.pictureSize / 2,
+    overflow: "hidden"
   }
 });

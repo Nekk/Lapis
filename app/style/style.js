@@ -44,6 +44,10 @@ exports.globalStyle = StyleSheet.create({
   },
   spinnerTextStyle: {
     color: "#FFF"
+  },
+  profilePicContainer: {
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

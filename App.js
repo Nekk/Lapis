@@ -8,7 +8,7 @@ import ApolloClient from "apollo-boost";
 import { gql } from "apollo-boost";
 
 const client = new ApolloClient({
-  uri: "http://192.168.2.35:4000/graphql"
+  uri: "http://192.168.2.34:4000/graphql"
   // request: async operation => {
   //   const token = await AsyncStorage.getItem('token');
   //   operation.setContext({

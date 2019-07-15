@@ -14,6 +14,7 @@ import RegisterScreen from "./app/screen/RegisterScreen";
 import RentScreen from "./app/screen/RentScreen";
 import ScanScreen from "./app/screen/ScanScreen";
 import AuthLoadingScreen from "./app/screen/AuthLoadingScreen";
+import AccountScreen from "./app/screen/AccountScreen.js";
 import SideMenu from "./app/components/SideMenu";
 import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
 
@@ -24,8 +25,8 @@ const DrawerStack = createDrawerNavigator(
   {
     Home: HomeScreen,
     Rent: RentScreen,
-    Scan: ScanScreen
-    //Profile: ProfileScreen,
+    Scan: ScanScreen,
+    Account: AccountScreen
     //Others...
   },
   {

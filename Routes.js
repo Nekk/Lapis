@@ -97,11 +97,3 @@ export const SwitchNavigator = createSwitchNavigator(
     initialRouteName: "AuthLoading"
   }
 );
-
-// const styles = StyleSheet.create({
-//     logo: {
-//         width: "60%",
-//         height: "60%",
-//         resizeMode: "contain"
-//     }
-// })

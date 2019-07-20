@@ -14,8 +14,8 @@ export default class RentScreen extends Component {
     super(props);
 
     this.state = {
-      isPressRent: false,
-      time: 172800
+      isTimerOn: true,
+      time: 172800 // 2 hours
     };
   }
 
@@ -26,19 +26,18 @@ export default class RentScreen extends Component {
     );
     // console.log(qrCodeData)
     Alert.alert("Scanned Complete!!");
-    // qrCodeData ? this.setState({isPressRent: true}) : alert("Please go back and scan again!")
+    // qrCodeData ? this.setState({isTimerOn: true}) : alert("Please go back and scan again!")
   }
 
-  _onPressBack = () => {
-    this.props.navigation.navigate("Home");
+  _onPressReturn = () => {
+    // this.props.navigation.navigate("Payment");
   };
 
-  _onPressRent = () => {
-    Alert.alert("Renewed");
-    this.setState({
-      isPressRent: true
-    });
-    // this.props.navigation.navigate("Scan");
+  _onPressRenew = () => {
+    // this.setState({
+    //   isTimerOn: false
+    // });
+    this.props.navigation.navigate("Scan");
   };
 
   render() {
@@ -48,7 +47,7 @@ export default class RentScreen extends Component {
       <View style={styles.rentContainer}>
         <View style={s.globalStyle.container}>
           <Text style={styles.headerTextStyle}>Timer</Text>
-          {this.state.isPressRent ? (
+          {this.state.isTimerOn ? (
             <CountDown
               style={styles.countDownStyle}
               size={countDownSize}
@@ -76,13 +75,13 @@ export default class RentScreen extends Component {
             <Button
               icon={<Icon name="refresh" size={40} color="white" />}
               title="Renew"
-              onPress={this._onPressRent}
+              onPress={this._onPressRenew}
             />
             <Button
               icon={<Icon name="chevron-left" size={40} color="white" />}
               buttonStyle={s.globalStyle.redBtn}
               title="Return"
-              onPress={this._onPressBack}
+              onPress={this._onPressReturn}
             />
           </View>
         </ThemeProvider>

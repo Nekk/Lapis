@@ -35,6 +35,10 @@ export default class SideMenu extends Component {
     Alert.alert("Coming Soon...");
   };
 
+  _onPressHome = () => {
+    this.props.navigation.navigate("Home");
+  };
+
   _onPressAccountSetting = () => {
     this.props.navigation.navigate("Account");
   };
@@ -62,9 +66,9 @@ export default class SideMenu extends Component {
               <Text style={styles.marginBottom}>firstName lastName</Text>
             )}
           </View>
+          <Button type="clear" title="Home Page" onPress={this._onPressHome} />
           <Button
             type="clear"
-            backgroundColor={"red"}
             title="History Usage"
             onPress={this._comingSoon}
           />

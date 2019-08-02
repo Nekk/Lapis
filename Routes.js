@@ -7,16 +7,17 @@ import {
 import React from "react";
 import { Button, StyleSheet, Image } from "react-native";
 import { Icon } from "react-native-elements";
+import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
 
 import HomeScreen from "./app/screen/HomeScreen.js";
 import LoginScreen from "./app/screen/LoginScreen";
 import RegisterScreen from "./app/screen/RegisterScreen";
-import RentScreen from "./app/screen/RentScreen";
+import TimerScreen from "./app/screen/TimerScreen";
 import ScanScreen from "./app/screen/ScanScreen";
 import AuthLoadingScreen from "./app/screen/AuthLoadingScreen";
 import AccountScreen from "./app/screen/AccountScreen.js";
 import SideMenu from "./app/components/SideMenu";
-import { _getState, _openDrawer, _signOut } from "./app/shared/function.js";
+import PaymentScreen from "./app/screen/PaymentScreen.js";
 
 const s = require("./app/style/style");
 const assets = require("./assets/index");
@@ -24,9 +25,10 @@ const assets = require("./assets/index");
 const DrawerStack = createDrawerNavigator(
   {
     Home: HomeScreen,
-    Rent: RentScreen,
+    Rent: TimerScreen,
     Scan: ScanScreen,
-    Account: AccountScreen
+    Account: AccountScreen,
+    Payment: PaymentScreen
     //Others...
   },
   {
@@ -97,3 +99,12 @@ export const SwitchNavigator = createSwitchNavigator(
     initialRouteName: "AuthLoading"
   }
 );
+
+// export const SwitchNavigator = createSwitchNavigator(
+//   {
+//     Rent: TimerScreen
+//   },
+//   {
+//     initialRouteName: 'Rent'
+//   }
+// )

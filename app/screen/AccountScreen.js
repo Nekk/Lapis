@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     // padding: 0,
     // width: '100%',
-    marginTop: s.height * 0.02,
+    marginTop: s.height * 0.01,
     marginBottom: s.height * 0.02
   },
   infoContainer: {

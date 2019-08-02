@@ -27,7 +27,7 @@ export default class FBLoginButton extends Component {
           // profile is an object of "id" and "name"
           const profile = await response.json();
           Alert.alert("Logged in!", `Hi ${profile.name}!`, `${profile}`);
-          this.props.onSignInSuccess(profile);
+          this.props.onSignInSuccess(profile, token);
           break;
         }
         case "cancel": {

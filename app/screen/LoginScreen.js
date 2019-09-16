@@ -106,6 +106,8 @@ export default class LoginScreen extends Component {
 
   _signInAsync = async token => {
     await AsyncStorage.setItem("userToken", token);
+    await AsyncStorage.setItem("username", this.state.username);
+    // await AsyncStorage.setItem("pictureUrl", profile.picture.data.url); // set profile picture
     this.props.navigation.navigate("DrawerStack");
   };
 
@@ -183,6 +185,10 @@ export default class LoginScreen extends Component {
                           const isValidatePass = this._validate();
                           //Need User notification
                           if (isValidatePass) {
+                            this.setState({
+                              spinner: true
+                            });
+
                             loginUser({
                               variables: {
                                 username: this.state.username,
@@ -191,15 +197,31 @@ export default class LoginScreen extends Component {
                             })
                               .then(result => {
                                 let token = result.data.loginUser;
-                                token
-                                  ? this._signInAsync(token)
-                                  : Alert.alert(
-                                      "Invalid Username or Password!"
-                                    );
+                                setTimeout(
+                                  () =>
+                                    token
+                                      ? this._signInAsync(token)
+                                      : Alert.alert(
+                                          "Invalid Username or Password!"
+                                        ),
+                                  500
+                                );
+                                this.setState({
+                                  spinner: false
+                                });
                               })
                               .catch(error => {
-                                console.log("error = ");
-                                console.log(error);
+                                setTimeout(
+                                  () =>
+                                    Alert.alert(
+                                      "Oops! There's an error logging in - " +
+                                        error
+                                    ),
+                                  500
+                                );
+                                this.setState({
+                                  spinner: false
+                                });
                               });
                           }
                         }}

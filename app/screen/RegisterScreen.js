@@ -201,6 +201,7 @@ export default class RegisterScreen extends Component {
                         title="Register"
                         onPress={() => {
                           const isValidatePass = this._validate();
+                          // const isValidatePass = true
 
                           if (isValidatePass) {
                             this.setState({
@@ -219,8 +220,11 @@ export default class RegisterScreen extends Component {
                               .then(result => {
                                 setTimeout(
                                   () => Alert.alert("Register Successfully!"),
-                                  10
+                                  500
                                 );
+                                this.setState({
+                                  spinner: false
+                                });
                                 navigate("Login");
                               })
                               .catch(error => {
@@ -230,12 +234,12 @@ export default class RegisterScreen extends Component {
                                       "Oops! There's an error registering - " +
                                         error
                                     ),
-                                  10
+                                  500
                                 );
+                                this.setState({
+                                  spinner: false
+                                });
                               });
-                            this.setState({
-                              spinner: false
-                            });
                           }
                         }}
                       />

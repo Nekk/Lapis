@@ -20,7 +20,7 @@ export default class SideMenu extends Component {
     super(props);
 
     this.state = {
-      username: null
+      username: ""
     };
   }
 

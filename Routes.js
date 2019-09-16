@@ -25,7 +25,7 @@ const assets = require("./assets/index");
 const DrawerStack = createDrawerNavigator(
   {
     Home: HomeScreen,
-    Rent: TimerScreen,
+    Timer: TimerScreen,
     Scan: ScanScreen,
     Account: AccountScreen,
     Payment: PaymentScreen
@@ -89,22 +89,23 @@ const AppStack = createStackNavigator(
   }
 );
 
-export const SwitchNavigator = createSwitchNavigator(
-  {
-    AuthLoading: AuthLoadingScreen,
-    App: AppStack,
-    Auth: LoginStack
-  },
-  {
-    initialRouteName: "AuthLoading"
-  }
-);
-
 // export const SwitchNavigator = createSwitchNavigator(
 //   {
-//     Rent: TimerScreen
+//     AuthLoading: AuthLoadingScreen,
+//     App: AppStack,
+//     Auth: LoginStack
 //   },
 //   {
-//     initialRouteName: 'Rent'
+//     initialRouteName: "AuthLoading"
 //   }
-// )
+// );
+
+export const SwitchNavigator = createSwitchNavigator(
+  {
+    Timer: TimerScreen,
+    Account: AccountScreen
+  },
+  {
+    initialRouteName: "Account"
+  }
+);

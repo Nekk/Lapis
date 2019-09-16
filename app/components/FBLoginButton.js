@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Alert, View, Platform, StyleSheet } from "react-native";
 import { ThemeProvider, Button, SocialIcon } from "react-native-elements";
-import { Facebook } from "expo";
+// import { Facebook } from "expo";
+import * as Facebook from "expo-facebook";
 
 const s = require("../style/style");
 const appID = "349205579115885";

@@ -106,6 +106,6 @@ export const SwitchNavigator = createSwitchNavigator(
     Account: AccountScreen
   },
   {
-    initialRouteName: "Account"
+    initialRouteName: "Timer"
   }
 );

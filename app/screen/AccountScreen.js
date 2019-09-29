@@ -72,7 +72,7 @@ export default class AccountScreen extends Component {
       username: await AsyncStorage.getItem("username"),
       pictureUrl: await AsyncStorage.getItem("pictureUrl")
     });
-    this.props.navigation.setParams({ headerTitle: "demo" });
+    // this.props.navigation.setParams({ headerTitle: "demo" });
   };
 
   queryUserComplete = data => {
@@ -248,8 +248,16 @@ export default class AccountScreen extends Component {
                                         password: this.state.password
                                       }
                                     })
-                                      .then(result => {
+                                      .then(async () => {
                                         Alert.alert("Save Successfully!");
+                                        await AsyncStorage.setItem(
+                                          "username",
+                                          this.state.usernameInput
+                                        );
+                                        this.setState({
+                                          username: this.state.usernameInput
+                                        });
+                                        // await AsyncStorage.setItem("pictureUrl", this.state.usernameInput);
                                       })
                                       .catch(error => {
                                         Alert.alert(

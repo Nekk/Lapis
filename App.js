@@ -6,20 +6,7 @@ import React from "react";
 import NavigationService from "./app/shared/NavigationService";
 import ApolloClient from "apollo-boost";
 import { gql } from "apollo-boost";
-
-const client = new ApolloClient({
-  uri: "http://192.168.2.35:4000/graphql"
-  // uri: "http://127.0.0.1:4000/graphql"
-  // uri: "http://10.0.1.17:4000/graphql"
-  // request: async operation => {
-  //   const token = await AsyncStorage.getItem('token');
-  //   operation.setContext({
-  //     headers: {
-  //       authorization: token ? `Bearer ${token}` : ''
-  //     }
-  //   });
-  //  }
-});
+import { client } from "./app/constant";
 
 const AppContainer = createAppContainer(SwitchNavigator);
 

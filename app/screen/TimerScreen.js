@@ -133,6 +133,7 @@ import {
   Text,
   View,
   Alert,
+  AsyncStorage,
   TouchableHighlight
 } from "react-native";
 import { Icon, Button, ThemeProvider } from "react-native-elements";
@@ -142,15 +143,9 @@ import { Mutation } from "react-apollo";
 import { Notifications } from "expo";
 // import { NOTIFICATIONS } from "expo-permissions";
 import { registerForPushNotificationsAsync } from "../shared/function";
+import { client, PUSH_NOTIFICATION_ENDPOINT } from "../constant";
 
 const s = require("../style/style");
-// const SEND_PUSH_TOKEN = gql`
-//   mutation sendPushToken($token: String!) {
-//     sendPushToken(token: $token) {
-//       result
-//     }
-//   }
-// `;
 
 export default class TimerScreen extends Component {
   static navigationOptions = {
@@ -163,7 +158,8 @@ export default class TimerScreen extends Component {
     this.state = {
       timerStart: true,
       stopwatchStart: true,
-      totalDuration: 10000, // 10 seconds
+      // totalDuration: 7200000, // 2 hrs
+      totalDuration: 2000, // 10 seconds
       timerReset: false,
       stopwatchReset: false,
 
@@ -201,9 +197,13 @@ export default class TimerScreen extends Component {
     );
     // console.log(qrCodeData)
     await registerForPushNotificationsAsync();
-    this._notificationSubscription = Notifications.addListener(
-      this._handleNotification
-    );
+
+    // set this.state.notification a value that got from expo token which will
+    // contain data
+    // this._notificationSubscription = Notifications.addListener(
+    //   this._handleNotification
+    // );
+
     Alert.alert("Scanned Complete!!");
     // qrCodeData ? this.setState({isTimerOn: true}) : alert("Please go back and scan again!")
   }
@@ -279,7 +279,7 @@ export default class TimerScreen extends Component {
             start={this.state.timerStart}
             reset={this.state.timerReset}
             options={timerOptions}
-            // handleFinish={handleTimerComplete}
+            handleFinish={handleTimerComplete}
             getTime={this.getTimerTime}
           />
         </View>
@@ -303,7 +303,35 @@ export default class TimerScreen extends Component {
   }
 }
 
-const handleTimerComplete = () => alert("custom completion function");
+const handleTimerComplete = () => {
+  console.log("handleTimerComplete");
+  // client.query({
+  //   variables:{ username: await AsyncStorage.getItem('username') },
+  //   query: gql`
+  //     query GetPushNotiToken($username: String!){
+  //       getPushNotiToken(username: $username)
+  //     }
+  //   `
+  // })
+  // .then(response => console.log(response))
+
+  // fetch for a push notification after getting push token from the API
+  // alert('Hello')
+  return fetch(PUSH_NOTIFICATION_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      // to: token,
+      to: "ExponentPushToken[j9YKcPEjuGwowN6zOifmPg]",
+      title: "Test Title",
+      body: "Test body",
+      sound: "default"
+    })
+  });
+};
 
 const options = {
   // container: {

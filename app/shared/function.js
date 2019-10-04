@@ -48,52 +48,15 @@ export const registerForPushNotificationsAsync = async () => {
   let token = await Notifications.getExpoPushTokenAsync();
 
   // client.mutate({
-  //   variables:{token: token, username: "username"},
+  //   variables:{token: token},
   //   mutation: gql`
-  //   mutation StorePushNotiToken($token: String!, $username: String!){
-  //     storePushNotiToken(token: $token, username: $username)
+  //   mutation StorePushNotiToken($token: String!){
+  //     storePushNotiToken(token: $token){token}
   //   }
   //   `
   // })
   // .then(response => console.log(response))
   // .error(error => console.log(error))
-
-  // POST the token to your backend server from where you can retrieve it to send push notifications.
-  return fetch(PUSH_NOTIFICATION_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      to: token,
-      title: "Test Title",
-      body: "test body",
-      sound: "default"
-    })
-  });
-
-  // return fetch(constant.apiUrl, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     mutation: `mutation {storePushNotiToken(token:"testt", username:"user")}`
-  //     // query: `query { user(username:"A"){
-  //     //     firstName,
-  //     //     lastName,
-  //     //     email,
-  //     //     username
-  //     //   }
-  //     // }`
-  //   })
-  // }).then(async response => {
-  //   console.log(10)
-  //   console.log(await response.json())
-  //   // console.log(response.json())
-  //   // return response.json()
-  // })
 };
 
 // export const getPushNotificationsToken = () => {

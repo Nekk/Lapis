@@ -1,7 +1,7 @@
 import ApolloClient from "apollo-boost";
 
 export const pictureSize = 50;
-export const apiUrl = "http://192.168.2.35:4000/graphql";
+export const apiUrl = "http://192.168.2.36:4000/graphql";
 export const client = new ApolloClient({
   uri: apiUrl
   // uri: "http://192.168.2.35:4000/graphql"

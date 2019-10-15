@@ -303,17 +303,23 @@ export default class TimerScreen extends Component {
   }
 }
 
-const handleTimerComplete = () => {
+const handleTimerComplete = async () => {
   console.log("handleTimerComplete");
-  // client.query({
-  //   variables:{ username: await AsyncStorage.getItem('username') },
-  //   query: gql`
-  //     query GetPushNotiToken($username: String!){
-  //       getPushNotiToken(username: $username)
-  //     }
-  //   `
-  // })
-  // .then(response => console.log(response))
+  let userId = Number(await AsyncStorage.getItem("userId"));
+
+  let expoToken = await client
+    .query({
+      variables: { userId },
+      query: gql`
+        query GetPushNotiToken($userId: Int!) {
+          getPushNotiToken(userId: $userId)
+        }
+      `
+    })
+    .then(response => {
+      return response.data.getPushNotiToken;
+    })
+    .catch(error => console.log(error));
 
   // fetch for a push notification after getting push token from the API
   // alert('Hello')
@@ -324,8 +330,8 @@ const handleTimerComplete = () => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      // to: token,
-      to: "ExponentPushToken[j9YKcPEjuGwowN6zOifmPg]",
+      to: expoToken,
+      // to: "ExponentPushToken[j9YKcPEjuGwowN6zOifmPg]",
       title: "Test Title",
       body: "Test body",
       sound: "default"

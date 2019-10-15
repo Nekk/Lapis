@@ -83,6 +83,7 @@ import FBLoginButton from "../components/FBLoginButton";
 import validator from "validator";
 import { gql } from "apollo-boost";
 import { Mutation } from "react-apollo";
+import { client } from "../constant";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const s = require("../style/style");
@@ -107,8 +108,24 @@ export default class LoginScreen extends Component {
   _signInAsync = async token => {
     await AsyncStorage.setItem("userToken", token);
     await AsyncStorage.setItem("username", this.state.username);
-    // await AsyncStorage.setItem("pictureUrl", profile.picture.data.url); // set profile picture
-    this.props.navigation.navigate("DrawerStack");
+    // console.log(this.state.username)
+    await client
+      .query({
+        variables: { username: this.state.username },
+        query: gql`
+          query GetUserId($username: String!) {
+            getUserId(username: $username)
+          }
+        `
+      })
+      .then(async res => {
+        // res.data.getUserId is the userId that acquired from db and is a number
+        // and an integer cannot be stored in AsyncStorage
+        await AsyncStorage.setItem("userId", res.data.getUserId.toString());
+        // await AsyncStorage.setItem("pictureUrl", profile.picture.data.url); // set profile picture
+        this.props.navigation.navigate("DrawerStack");
+      });
+    // console.log(userId)
   };
 
   _facebookSignInAsync = async (profile, token) => {

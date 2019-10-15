@@ -4,7 +4,7 @@ import NavigationService from "./NavigationService";
 import { Notifications } from "expo";
 import { gql } from "apollo-boost";
 import * as Permissions from "expo-permissions";
-import { client, PUSH_NOTIFICATION_ENDPOINT } from "../constant";
+import { client } from "../constant";
 
 export const _openDrawer = () => {
   NavigationService.openDrawer();
@@ -46,17 +46,28 @@ export const registerForPushNotificationsAsync = async () => {
 
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
+  let userIdStr = await AsyncStorage.getItem("userId");
+  let userId = Number(userIdStr);
 
-  // client.mutate({
-  //   variables:{token: token},
-  //   mutation: gql`
-  //   mutation StorePushNotiToken($token: String!){
-  //     storePushNotiToken(token: $token){token}
-  //   }
-  //   `
-  // })
-  // .then(response => console.log(response))
-  // .error(error => console.log(error))
+  // don't forget to check whether the push notification token has been stored before
+  // storing it.
+  client
+    .mutate({
+      variables: { token: token, userId: userId },
+      mutation: gql`
+        mutation StorePushNotiToken($token: String!, $userId: Int!) {
+          storePushNotiToken(token: $token, userId: $userId) {
+            token
+          }
+        }
+      `
+    })
+    .then(response => console.log(response))
+    .catch(error => {
+      // expo's token and userId need to be unique, if it lands here, means that there are already token and/or userId
+      // store in DB.
+      Alert.alert("This user has already lent a powerbank");
+    });
 };
 
 // export const getPushNotificationsToken = () => {

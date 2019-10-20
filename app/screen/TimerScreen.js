@@ -220,8 +220,8 @@ export default class TimerScreen extends Component {
   };
 
   render() {
-    console.log("noti");
-    console.log(this.state.notification);
+    // console.log("noti");
+    // console.log(this.state.notification);
     return (
       // <Mutation mutation={SEND_PUSH_TOKEN}>
       //   {(sendPushToken, { data }) => {
@@ -318,8 +318,9 @@ const handleTimerComplete = async () => {
     })
     .then(response => {
       return response.data.getPushNotiToken;
-    })
-    .catch(error => console.log(error));
+    });
+  // .catch(error => console.log(error));
+  // console.log(expoToken)
 
   // fetch for a push notification after getting push token from the API
   // alert('Hello')

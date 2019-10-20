@@ -51,23 +51,17 @@ export const registerForPushNotificationsAsync = async () => {
 
   // don't forget to check whether the push notification token has been stored before
   // storing it.
-  client
-    .mutate({
-      variables: { token: token, userId: userId },
-      mutation: gql`
-        mutation StorePushNotiToken($token: String!, $userId: Int!) {
-          storePushNotiToken(token: $token, userId: $userId) {
-            token
-          }
+  await client.mutate({
+    variables: { token: token, userId: userId },
+    mutation: gql`
+      mutation StorePushNotiToken($token: String!, $userId: Int!) {
+        storePushNotiToken(token: $token, userId: $userId) {
+          token
         }
-      `
-    })
-    .then(response => console.log(response))
-    .catch(error => {
-      // expo's token and userId need to be unique, if it lands here, means that there are already token and/or userId
-      // store in DB.
-      Alert.alert("This user has already lent a powerbank");
-    });
+      }
+    `
+  });
+  // .then(response => console.log(response))
 };
 
 // export const getPushNotificationsToken = () => {

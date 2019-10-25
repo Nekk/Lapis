@@ -89,23 +89,23 @@ const AppStack = createStackNavigator(
   }
 );
 
-// export const SwitchNavigator = createSwitchNavigator(
-//   {
-//     AuthLoading: AuthLoadingScreen,
-//     App: AppStack,
-//     Auth: LoginStack
-//   },
-//   {
-//     initialRouteName: "AuthLoading"
-//   }
-// );
-
 export const SwitchNavigator = createSwitchNavigator(
   {
-    Timer: TimerScreen,
-    Account: AccountScreen
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: LoginStack
   },
   {
-    initialRouteName: "Timer"
+    initialRouteName: "AuthLoading"
   }
 );
+
+// export const SwitchNavigator = createSwitchNavigator(
+//   {
+//     Timer: TimerScreen,
+//     Account: AccountScreen
+//   },
+//   {
+//     initialRouteName: "Timer"
+//   }
+// );
